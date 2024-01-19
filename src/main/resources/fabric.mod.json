@@ -2,22 +2,23 @@
   "schemaVersion": 1,
   "id": "minidiamond",
   "version": "${version}",
-
   "name": "MiniDiamond",
   "description": "",
   "authors": [],
-  "contact": {},
-
+  "contact": {
+    "repo": "https://github.com/jmilthedude/MiniDiamond"
+  },
   "license": "MIT",
   "icon": "assets/minidiamond/icon.png",
-
   "environment": "server",
-  "entrypoints": {},
-
-      "mixins": [
-        "minidiamond.mixins.json"
-      ],
-
+  "entrypoints": {
+    "main": [
+      "net.ninjadev.minidiamond.MiniDiamond"
+    ]
+  },
+  "mixins": [
+    "minidiamond.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "${minecraft_version}"

@@ -1,48 +1,45 @@
 package net.ninjadev.minidiamond.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.ninjadev.minidiamond.MiniDiamond;
 
-public class MiniDiamondRecipe implements Recipe<CraftingInventory> {
-    private final Identifier id;
+public class DiamondRecipe implements CraftingRecipe {
 
-    public MiniDiamondRecipe(Identifier id) {
-        this.id = id;
-    }
-
-    public Identifier getId() {
-        return this.id;
-    }
+    public DiamondRecipe() {}
 
     @Override
-    public boolean matches(CraftingInventory inventory, World world) {
+    public boolean matches(RecipeInputInventory inventory, World world) {
+        ItemStack ingredient = MiniDiamond.getMiniDiamond();
         int size = inventory.size();
         if (size < 9) return false;
         for (int i = 0; i < size; i++) {
             ItemStack stack = inventory.getStack(i);
             if (stack.isEmpty()) return false;
-            if (!ItemStack.areEqual(stack, MiniDiamond.getMiniDiamond())) return false;
+            if (!ItemStack.areEqual(stack, ingredient)) return false;
         }
         return true;
     }
 
     @Override
-    public ItemStack craft(CraftingInventory inventory, DynamicRegistryManager registryManager) {
-        return null;
+    public ItemStack craft(RecipeInputInventory inventory, DynamicRegistryManager registryManager) {
+        return this.getResult(registryManager);
     }
 
     @Override
     public boolean fits(int width, int height) {
-        return width == 3 && height == 3;
+        return width * height >= 9;
     }
 
     @Override
@@ -52,15 +49,10 @@ public class MiniDiamondRecipe implements Recipe<CraftingInventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return null;
+        return RecipeSerializer.SHAPED;
     }
-
     @Override
-    public RecipeType<?> getType() {
-        return null;
-    }
-
-    public static class Type implements RecipeType<MiniDiamondRecipe> {
-        
+    public CraftingRecipeCategory getCategory() {
+        return CraftingRecipeCategory.MISC;
     }
 }

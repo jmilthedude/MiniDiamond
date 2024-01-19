@@ -4,8 +4,7 @@
   "package": "net.ninjadev.minidiamond.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-  ],
-  "client": [
+    "RecipeManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
